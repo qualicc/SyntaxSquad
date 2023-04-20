@@ -11,7 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('Book', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(Company::class);
+            $table->string('name');
+            $table->date('date');
+            $table->string('start');
+            $table->string('end');
+
+        });
     }
 
     /**
@@ -19,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('Book');
     }
 };
