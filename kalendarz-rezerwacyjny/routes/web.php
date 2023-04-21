@@ -13,10 +13,10 @@ use App\Http\Controllers\Calendar;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/', [Calendar::class, 'index']);
+Route::get('/', function () {
+    return view('welcome');
+});
+Route::get('/cal', [Calendar::class, 'index']);
+//Route::get('/cal', 'CalendarController@index');
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

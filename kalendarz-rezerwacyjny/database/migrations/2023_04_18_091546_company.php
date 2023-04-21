@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('Company', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('date')->unique();
+            $table->bigInteger('nip')->unique();
         });
     }
 

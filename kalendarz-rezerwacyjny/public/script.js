@@ -9,10 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
       dateClick: function(info) {
         let currentDate = new Date().toJSON().slice(0, 10);
       if (currentDate <= info.dateStr) { // date val
-        $( "#formdane" ).css( "display", "flex" );
+        $( "#formularz" ).css( "display", "flex" );
         console.log(info.dateStr + "  " + currentDate);
         $( "#formdane" ).html(`
-        <i id="closeForm" class="fa-solid fa-xmark fa-3x"></i>
         <form method="POST">
           <input type="date" id="date" name="date" style="display:none" value="`+info.dateStr+`" required>
           <label for="hours">Zakres godzin:</label>
@@ -76,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
     calendar.render();
     $("#closeForm").click(
       function() {
-        $("#formdane").css("display", "none")
+        $("#formularz").css("display", "none")
       }
     )
   });
