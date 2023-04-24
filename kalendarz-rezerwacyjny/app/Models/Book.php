@@ -17,4 +17,7 @@ class Book extends Model
         'start',
         'end'
     ];
+    protected $hidden = [
+
+    ];
 }

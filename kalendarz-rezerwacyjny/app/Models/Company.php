@@ -13,4 +13,8 @@ class Company extends Model
         'name',
         'NIP',
     ];
+
+    protected $hidden = [
+
+    ];
 }

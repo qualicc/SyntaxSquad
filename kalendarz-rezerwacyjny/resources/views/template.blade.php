@@ -13,25 +13,42 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 <body>
-    <header>
-        <div class="d-grid gap-2 d-md-block">
-            <a href="{{URL::to('')}}" class="btn btn-primary" type="button">Index</a>
-             <a href="" class="btn btn-primary" type="button">Button</a> 
-        </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            @auth
-                <a class="btn btn-primary me-md-2" href="{{route('zarzadzanie')}}">Zarządzaj danymi firmy</a>
-                <a class="btn btn-primary" href="{{route('zarzadzanie')}}">Zarządzaj rezerwacjami</a>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{URL::to('')}}">INDEX</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{URL::to('')}}">Home</a>
+                    </li>
 
-            @else
-                <a href="{{ route('login') }}" class="btn btn-primary me-md-2">Log in</a>
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
-                @endif
-            
-            @endauth
+                </ul>
+                
+                
+                <div class="d-flex ">
+                    @auth
+                        <a class="btn btn-primary me-md-2" href="{{route('zarzadzanie')}}">Zarządzaj danymi firmy</a>
+                        <a class="btn btn-primary" href="{{route('zarzadzanie')}}">Zarządzaj rezerwacjami</a>
+
+                    @else
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ route('login') }}">Login</a>
+                        </li>
+                        @if (Route::has('register'))
+                        <li class="nav-item">
+                        <a href="{{ route('register') }}" aria-current="page" class="nav-link active">Register</a>
+                        </li>
+                        @endif
+                    </ul>
+                    @endauth
+                </div>
+            </div>
         </div>
-    </header>
+    </nav>
     @if(isset($mainId))
     <main id="{{$mainId}}">
     @else
