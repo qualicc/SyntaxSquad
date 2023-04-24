@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         $( "#formularz" ).css( "display", "flex" );
         console.log(info.dateStr + "  " + currentDate);
         $( "#formdane" ).html(`
-        <form method="POST">
+        <form method="POST" action="addEvent">
           <input type="date" id="date" name="date" style="display:none" value="`+info.dateStr+`" required>
           <label for="hours">Zakres godzin:</label>
           <div class="hour-display">

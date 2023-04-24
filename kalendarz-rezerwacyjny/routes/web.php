@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Calendar;
+use App\Http\Controllers\Bookingmanagement;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +17,7 @@ use App\Http\Controllers\Calendar;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/cal', [Calendar::class, 'index']);
-//Route::get('/cal', 'CalendarController@index');
+Route::get('/cale', [Calendar::class, 'index']);
+Route::post('/addEvent', [Bookingmanagement::class, 'Reservation']);
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

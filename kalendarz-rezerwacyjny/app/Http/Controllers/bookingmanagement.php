@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Book;
 
-class bookingmanagement extends Controller
+class Bookingmanagement extends Controller
 {
     public function Reservation(Request $request)
     {
