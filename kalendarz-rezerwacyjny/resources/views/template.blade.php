@@ -30,8 +30,8 @@
                 
                 <div class="d-flex ">
                     @auth
-                        <a class="btn btn-primary me-md-2" href="{{route('zarzadzanie')}}">Zarządzaj danymi firmy</a>
-                        <a class="btn btn-primary" href="{{route('zarzadzanie')}}">Zarządzaj rezerwacjami</a>
+                        <a class="btn btn-primary me-md-2" href="{{route('company')}}">Zarządzaj danymi firmy</a>
+                        <a class="btn btn-primary" href="{{route('reservation')}}">Zarządzaj rezerwacjami</a>
 
                     @else
                     <ul class="navbar-nav">
