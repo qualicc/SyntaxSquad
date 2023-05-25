@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Employee;
+use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -27,6 +29,20 @@ class HomeController extends Controller
     }
     public function company()
     {
-        return view('selectcompany');
+        $userCompanyId = Employee::select('company') -> where('user', '=', Auth::id()) -> first() ;
+        
+        if (Auth::check() && !empty($userCompanyId)) {
+            $comapny = Company::where('ID', '=', $userCompanyId['company']) -> first();
+            return view('mycompany', [
+                'comapny' => $comapny,
+                'mainId' => "companymenu",
+            ]);
+        }
+        else
+        {
+            return view('selectcompany',[
+                'mainId' => "selectcompany"
+            ]);
+        }
     }
 }

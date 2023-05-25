@@ -65,3 +65,25 @@ html {
  main#kalendarz #formularz form > *{
   margin: 5px 0px;
  }
+
+ main#selectcompany #application{
+  display: none;
+ }
+ main#selectcompany form{
+  padding: 10px 0px;
+ }
+ main#selectcompany form button{
+  margin: 20px 10px;
+ }
+ main#companymenu > *{
+  margin: 10px 0px;
+ }
+ main#companymenu a {
+  margin: 10px 20px;
+ }
+ main#editform form{
+  padding: 10px 0px;
+ }
+ main#editform form button{
+  margin: 20px 10px;
+ }

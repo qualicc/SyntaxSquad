@@ -5,20 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class employee extends Model
 {
     use HasFactory;
+    
+    protected $table = "employee";
 
-    protected $table = "book";
+    public $timestamps = false;
 
     protected $fillable = [
-        'ID',
-        'IDCompany',
-        'name',
-        'date',
-        'start',
-        'end'
+        'user',
+        'company',
     ];
+
     protected $hidden = [
 
     ];

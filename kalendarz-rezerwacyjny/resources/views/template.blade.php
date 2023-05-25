@@ -30,9 +30,16 @@
                 
                 <div class="d-flex ">
                     @auth
-                        <a class="btn btn-primary me-md-2" href="{{route('company')}}">Zarządzaj danymi firmy</a>
-                        <a class="btn btn-primary" href="{{route('reservation')}}">Zarządzaj rezerwacjami</a>
-
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{URL::to('company')}}">Zarządzaj danymi firmy</a>
+                        </li>
+                        @if (Route::has('register'))
+                        <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{URL::to('reservation')}}">Zarządzaj rezerwacjami</a>
+                        </li>
+                        @endif
+                    </ul>
                     @else
                     <ul class="navbar-nav">
                         <li class="nav-item">

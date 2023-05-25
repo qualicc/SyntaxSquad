@@ -4,9 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\Employee;
+use Illuminate\Support\Facades\Auth;
 
 class Bookingmanagement extends Controller
 {
+    public function list()
+    {
+        $userCompanyId = Employee::select('company') -> where('user', '=', Auth::id()) -> first() ;
+        if (Auth::check() && !empty($userCompanyId)) {
+           $list = Book::where('companyId', '=', $userCompanyId['company']) -> get();
+            return view('reservationlist', [
+                'list' => $list,
+                'companyId' => $userCompanyId['company'],
+                'i' => 0
+            ]);
+        }
+        else
+        {
+            return redirect('company');
+        }
+        
+    }
     public function Reservation(Request $request)
     {
         if(Auth::check() &&

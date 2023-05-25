@@ -78,4 +78,21 @@ document.addEventListener('DOMContentLoaded', function() {
         $("#formularz").css("display", "none")
       }
     )
+
   });
+  $("#createbutton").click(
+    function() {
+      console.log("click")
+      $("#create").css("display", "block");
+      $("#application").css("display", "none")
+    }
+  )
+  $("#questbutton").click(
+    function() {
+      console.log("click")
+      $("#create").css("display", "none");
+      $("#application").css("display", "block")
+    }
+  )
+
+  
