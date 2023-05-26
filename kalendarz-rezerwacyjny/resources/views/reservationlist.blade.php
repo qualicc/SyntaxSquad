@@ -15,6 +15,7 @@
             <th scope="col">dzień</th>
             <th scope="col">godzina startu</th>
             <th scope="col">godzina zakończenia</th>
+            <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +27,9 @@
                     <td>{{$one['date']}}</td>
                     <td>{{$one['start']}}</td>
                     <td>{{$one['end']}}</td>
+                    <td>
+                        <a href="delbook/{{$one['id']}}" type="button" class="btn btn-danger">Usuń</a>
+                    </td>
                 </tr>
                 {{$i++}}
             @endforeach

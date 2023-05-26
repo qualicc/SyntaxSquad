@@ -6,6 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\PostController;
 use App\Models\Employee;
+use App\Models\Companyrequest;
 use App\Models\Company as firma;
 
 class Company extends Controller
@@ -55,8 +56,52 @@ class Company extends Controller
         $comapny -> save();
         return redirect('company');
     }
-    public function request()
+    public function request(Request $req)
     {
-        # code...
+        
+        $val = $req -> validate([
+            'serchcomapny' => 'required',
+        ]);
+        
+        $zaproszenie = new Companyrequest;
+        $zaproszenie -> companyID = $val['serchcomapny'];
+        $zaproszenie -> userID = Auth::id();
+        $zaproszenie -> status = false;
+        $zaproszenie -> save();
+        return redirect('company');
+    }
+    public function list()
+    {
+        $userCompanyId = Employee::select('company') -> where('user', '=', Auth::id()) -> first();
+        $swoi = Employee::where('employee.company', '=', $userCompanyId -> company) -> join('users', 'users.id', '=', 'employee.user') -> get();
+        $aplikacje = Companyrequest::where('companyrequest.companyID', '=', $userCompanyId -> company) -> where('companyrequest.status', '=', '0') -> join('users', 'users.id', '=', 'companyrequest.userID') -> get();
+        return view("listemp", [
+            "firma" => $swoi,
+            "aplikacje" => $aplikacje,
+            "mainId" => "listafirmy",
+            "i" => 0,
+            "ii" => 0,
+        ]);
+    }
+    public function acceptApplication($companyID,$userid)
+    {
+        $aplikacja = Companyrequest::where('companyID','=',$companyID) -> where('userID','=',$userid) -> first();
+        $aplikacja -> status = true;
+        $aplikacja -> save();
+        $empl = new Employee;
+        $empl -> user = $userid;
+        $empl -> company = $companyID;
+        $empl -> save();
+        return redirect('company');
+    }
+    public function deleteApplication($companyID,$userid)
+    {
+        $aplikacja = Companyrequest::where('companyID','=',$companyID) -> where('userID','=',$userid) -> delete();
+        return redirect('company');
+    }
+    public function kickemployee($companyID, $userid)
+    {
+        $empl = Employee::where('company','=',$companyID) -> where('user','=',$userid) -> delete();
+        return redirect('company');
     }
 }

@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Controllers\PostController;
 use App\Models\Book;
 use App\Models\Employee;
-use Illuminate\Support\Facades\Auth;
+
 
 class Bookingmanagement extends Controller
 {
@@ -28,36 +30,56 @@ class Bookingmanagement extends Controller
     }
     public function Reservation(Request $request)
     {
-        if(Auth::check() &&
-         $this -> valTime($request -> input('start'), $request -> input('end')))
-        {
-            $val = $request -> validate(
-                [
-                    'sala'  => 'require',
-                    'name'  => 'require',
-                    'date'  => 'require',
-                    'start' => 'require',
-                    'end'   => 'require',
-                ]
-            );
-            $user = Auth::user();
-            $companyId = $user -> companyId;
+        $userCompanyId = Employee::select('company') -> where('user', '=', Auth::id()) -> first();
+        if (Auth::id() && !empty($userCompanyId)) {
+            $val = $request->validate([
+                'eventname'  => 'required',
+                'date'  => 'required',
+                'hourstart' => 'required',
+                'minutestart'   => 'required',
+                'hourend' => 'required',
+                'minuteend'   => 'required',
+            ]);
+            if(Auth::check() &&
+            $this -> valTime( $val['hourstart'],
+            $val['minutestart'],
+            $val['hourend'], 
+            $val['minuteend'],
+            $val['date']))
+            {
+                
+                $one = $val['hourstart'] . ":" . $val['minutestart'] . " " . $val['date'];
+                $two = $val['hourend'] . ":" . $val['minuteend'] . " " . $val['date'];
+                $oone = date($one);
+                $ttwo = date($two);
 
-            $reservation = new Book;
+                
 
-            $reservation -> IDCompany = $companyId;
-            $reservation -> name = $request -> input('name');
-            $reservation -> date = $request -> input('date');
-            $reservation -> start = $request -> input('start');
-            $reservation -> end = $request -> input('end');
+                $reservation = new Book;
 
-            $reservation -> save();
-            return redirect('');
+                $reservation -> companyId = $userCompanyId['company'];
+                $reservation -> name = $val['eventname'];
+                $reservation -> date = $val['date'];
+                $reservation -> start =  $oone;
+                $reservation -> end = $ttwo;
+
+                $reservation -> save();
+                return redirect('');
+            }
         }
+        else
+        {
+            return redirect('/login');
+        }
+        
     }
-    private function valTime($start, $koniec)
+    private function valTime($starth, $startm, $koniech, $koniecm, $dzien)
     {
-        if($start > $koniec)
+        $one = $starth . ":" .$startm . " " . $dzien;
+        $two = $koniech . ":" . $koniecm . " " . $dzien;
+        $oone = date($one);
+        $ttwo = date($two);
+        if($ttwo > $oone)
         {
             return true;
         }
@@ -65,5 +87,10 @@ class Bookingmanagement extends Controller
         {
             return false;
         }
+    }
+    public function deleteBooking($idbook)
+    {
+        $aplikacja = Book::where('id','=',$idbook) -> delete();
+        return redirect('/');
     }
 }

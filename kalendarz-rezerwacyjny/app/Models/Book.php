@@ -10,10 +10,10 @@ class Book extends Model
     use HasFactory;
 
     protected $table = "book";
-
+    public $timestamps = false;
     protected $fillable = [
         'ID',
-        'IDCompany',
+        'companyId',
         'name',
         'date',
         'start',

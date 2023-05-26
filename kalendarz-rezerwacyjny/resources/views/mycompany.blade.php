@@ -15,6 +15,7 @@
     <h2>NIP towjej firmy: {{$comapny -> nip}}</h2>
   </div>
   <div class="d-flex justify-content-center">
+    <a href="{{URL::to('company-employee')}}" type="button" class="btn btn-primary">Pracownicy firmy</a>
     <a href="{{URL::to('company-edit')}}" type="button" class="btn btn-primary">Edytuj dane firmy</a>
     <a href="{{URL::to('company-leave')}}" type="button" class="btn btn-danger">Odejdź firmy</a>
   </div>

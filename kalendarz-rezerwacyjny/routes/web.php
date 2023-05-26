@@ -16,15 +16,18 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');company-leave
-// });
 Route::get('/', [Calendar::class, 'index']);
 Route::get('/company', [HomeController::class, 'company']);
-Route::post('/addEvent', [Bookingmanagement::class, 'Reservation']);
 Route::get('/reservation', [Bookingmanagement::class, 'list']);
 Route::get('/company-leave', [Company::class, 'leave']);
+Route::get('/company-employee', [Company::class, 'list']);
 Route::get('/company-edit', [Company::class, 'editform']);
+Route::get('/company-employee', [Company::class, 'list']);
+Route::get('/acceptapp/{companyID}/{userid}', [Company::class, 'acceptApplication']);
+Route::get('/delapp/{companyID}/{userid}', [Company::class, 'deleteApplication']);
+Route::get('/delempl/{companyID}/{userid}', [Company::class, 'kickemployee']);
+Route::get('/delbook/{idbook}', [Bookingmanagement::class, 'deleteBooking']);
+Route::post('/addEvent', [Bookingmanagement::class, 'Reservation']);
 Route::post('/company-edit', [Company::class, 'edit']);
 Route::post('/company-request', [Company::class, 'request']);
 Route::post('/company-create', [Company::class, 'CreateCompany']);
