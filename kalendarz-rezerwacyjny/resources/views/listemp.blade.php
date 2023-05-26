@@ -23,8 +23,8 @@
                 @foreach($firma as $one)
                     <tr>
                         <th scope="row">{{$i}}</th>
-                        <td>{{$one['users.id']}}</td>
-                        <td>{{$one['users.name']}}</td>
+                        <td>{{$one['id']}}</td>
+                        <td>{{$one['name']}}</td>
                         <td>
                             <a href="delempl/{{$one['company']}}/{{$one['user']}}" type="button" class="btn btn-danger">Usuń</a>
                         </td>
@@ -51,8 +51,8 @@
                 @foreach($aplikacje as $one)
                     <tr>
                         <th scope="row">{{$i}}</th>
-                        <td>{{$one['users.id']}}</td>
-                        <td>{{$one['users.name']}}</td>
+                        <td>{{$one['id']}}</td>
+                        <td>{{$one['name']}}</td>
                         <td>
                             <a href="acceptapp/{{$one['companyID']}}/{{$one['userID']}}" type="button" class="btn btn-success">Zaakceptuj</a>
                         </td>
