@@ -31,5 +31,11 @@ Route::post('/addEvent', [Bookingmanagement::class, 'reservation']);
 Route::post('/company-edit', [Company::class, 'edit']);
 Route::post('/company-request', [Company::class, 'request']);
 Route::post('/company-create', [Company::class, 'CreateCompany']);
+Route::get('/logout', [HomeController::class, 'logout']);
 Auth::routes();
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+//Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', function () {
+    // Validate the request...
+ 
+    return redirect('/');
+});
