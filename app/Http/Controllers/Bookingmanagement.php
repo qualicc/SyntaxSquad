@@ -14,7 +14,10 @@ class Bookingmanagement extends Controller
     public function getUserCompanyID()
     {
         $com = Employee::select('company') -> where('user', '=', Auth::id()) -> first();
-        return $com['company'];
+        if(!empty($com)){
+            return $com['company'];
+        }
+        return $com;
     }
 
     public function list()
@@ -34,7 +37,6 @@ class Bookingmanagement extends Controller
         }
         
     }
-
     public function reservation(Request $request)
     {
         $userCompanyId = $this -> getUserCompanyID();
@@ -84,13 +86,14 @@ class Bookingmanagement extends Controller
                 {
                     return redirect('')->with('fail', 'Jakieś wydarzenie już istnieje.');
                 }
+                return redirect('')->with('fail', 'Błędny wymiar godzin.');
             }
         }
-        else
+        if(!(Auth::id()))
         {
             return redirect('/login');
         }
-        
+        return redirect('company');        
     }
 
     private function valTime($starth, $startm, $koniech, $koniecm, $dzien)

@@ -11,10 +11,13 @@ use App\Models\Company as firma;
 
 class Company extends Controller
 {
-    private function getUserCompanyID()
+    public function getUserCompanyID()
     {
         $com = Employee::select('company') -> where('user', '=', Auth::id()) -> first();
-        return $com['company'];
+        if(!empty($com)){
+            return $com['company'];
+        }
+        return $com;
     }
 
     public function CreateCompany(Request $req): RedirectResponse
@@ -33,7 +36,7 @@ class Company extends Controller
         $firstemp -> user = Auth::id();
         $firstemp -> company = $comapnyid['id'];
         $firstemp -> save();
-        return redirect('company');
+        return redirect('company')->with('success', 'Założenie firmy pomyślne!');
     }
     public function leave()
     {
@@ -74,7 +77,7 @@ class Company extends Controller
         $zaproszenie -> userID = Auth::id();
         $zaproszenie -> status = false;
         $zaproszenie -> save();
-        return redirect('company');
+        return redirect('')->with('success', 'Wysłano pomyślne!');
     }
     public function list()
     {

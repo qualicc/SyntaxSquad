@@ -25,11 +25,14 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
-    private function getUserCompanyID()
-    {
-        $com = Employee::select('company') -> where('user', '=', Auth::id()) -> first();
-        return $com['company'];
-    }
+     public function getUserCompanyID()
+     {
+         $com = Employee::select('company') -> where('user', '=', Auth::id()) -> first();
+         if(!empty($com)){
+             return $com['company'];
+         }
+         return $com;
+     }
 
     public function index()
     {

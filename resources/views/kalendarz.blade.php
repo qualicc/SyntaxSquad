@@ -1,21 +1,7 @@
 @extends('template')
 
 @section('content')
-@if(session('success') || session('fail'))
-    <div id="grayscreen">
-        @if(session('success'))
-            <div class="alert alert-success" role="alert">
-                {{ session('success') }}
-                <button type="button" id="hidemess" class="btn btn-primary">OK</button>
-            </div>
-        @elseif(session('fail'))
-            <div class="alert alert-danger" role="alert">
-                {{ session('fail') }}
-                <button type="button" id="hidemess" class="btn btn-primary">OK</button>
-            </div>
-        @endif
-    </div>
-@endif
+
 
 <div id='calendar'></div>
 <div id="formularz">

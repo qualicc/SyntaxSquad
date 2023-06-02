@@ -9,13 +9,13 @@
         </div>
         <div class="col-auto">
         <input type="hidden" name="id" value="{{$company['id']}}">
-        <input name="name" type="text" id="inputcreatename" value="{{$company['name']}}" class="form-control" aria-labelledby="passwordHelpInline" require>
+        <input name="name" type="text" id="inputcreatename" value="{{$company['name']}}" class="form-control" aria-labelledby="passwordHelpInline" required>
         </div>
         <div class="col-auto">
         <label for="inputcreatenip" class="col-form-label">Podaj nowy NIP firmy: </label>
         </div>
         <div class="col-auto">
-        <input name="NIP" type="text" id="inputcreatenip" value="{{$company['nip']}}" class="form-control" aria-labelledby="passwordHelpInline" require>
+        <input name="NIP" type="text" id="inputcreatenip" value="{{$company['nip']}}" class="form-control" maxlength="11" minlength="11" aria-labelledby="passwordHelpInline" required>
         </div>
         <button type="submit" class="mx-auto btn btn-primary">Wyślij</button>
     </div>

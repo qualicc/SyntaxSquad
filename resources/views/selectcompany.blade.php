@@ -21,13 +21,13 @@
             <label for="inputcreatename" class="col-form-label">Podaj nazwe firmy: </label>
           </div>
           <div class="col-auto">
-            <input name="name" type="text" id="inputcreatename" class="form-control" aria-labelledby="passwordHelpInline" require>
+            <input name="name" type="text" id="inputcreatename" class="form-control" aria-labelledby="passwordHelpInline" required>
           </div>
           <div class="col-auto">
             <label for="inputcreatenip" class="col-form-label">Podaj NIP firmy: </label>
           </div>
           <div class="col-auto">
-            <input name="NIP" type="text" id="inputcreatenip" class="form-control" aria-labelledby="passwordHelpInline" require>
+            <input name="NIP" type="text" id="inputcreatenip" class="form-control" maxlength="11" minlength="11" aria-labelledby="passwordHelpInline" required>
           </div>
             <button type="submit" class="mx-auto btn btn-primary">Wyślij</button>
         </div>
@@ -41,7 +41,7 @@
             <label for="inputrequest" class="col-form-label">Podaj ID firmy: </label>
           </div>
           <div class="col-auto">
-            <input name="serchcomapny" type="text" id="inputrequest" class="form-control" aria-labelledby="passwordHelpInline" require> 
+            <input name="serchcomapny" type="text" id="inputrequest" class="form-control" aria-labelledby="passwordHelpInline" required> 
           </div>
             <button type="submit" class="mx-auto btn btn-primary">Wyślij</button>
         </div>
