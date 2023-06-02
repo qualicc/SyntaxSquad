@@ -11,14 +11,20 @@ use App\Models\Employee;
 
 class Bookingmanagement extends Controller
 {
+    public function getUserCompanyID()
+    {
+        $com = Employee::select('company') -> where('user', '=', Auth::id()) -> first();
+        return $com['company'];
+    }
+
     public function list()
     {
-        $userCompanyId = Employee::select('company') -> where('user', '=', Auth::id()) -> first() ;
+        $userCompanyId = $this -> getUserCompanyID();
         if (Auth::check() && !empty($userCompanyId)) {
-           $list = Book::where('companyId', '=', $userCompanyId['company']) -> get();
+           $list = Book::where('companyId', '=', $userCompanyId) -> get();
             return view('reservationlist', [
                 'list' => $list,
-                'companyId' => $userCompanyId['company'],
+                'companyId' => $userCompanyId,
                 'i' => 0
             ]);
         }
@@ -28,10 +34,12 @@ class Bookingmanagement extends Controller
         }
         
     }
-    public function Reservation(Request $request)
+
+    public function reservation(Request $request)
     {
-        $userCompanyId = Employee::select('company') -> where('user', '=', Auth::id()) -> first();
-        if (Auth::id() && !empty($userCompanyId)) {
+        $userCompanyId = $this -> getUserCompanyID();
+        if (Auth::id() && !empty($userCompanyId)) 
+        {
             $val = $request->validate([
                 'eventname'  => 'required',
                 'date'  => 'required',
@@ -45,26 +53,37 @@ class Bookingmanagement extends Controller
             $val['minutestart'],
             $val['hourend'], 
             $val['minuteend'],
+            $val['date']) &&
+            $this -> reserved($val['hourstart'],
+            $val['minutestart'],
+            $val['hourend'], 
+            $val['minuteend'],
             $val['date']))
-            {
-                
-                $one = $val['hourstart'] . ":" . $val['minutestart'] . " " . $val['date'];
-                $two = $val['hourend'] . ":" . $val['minuteend'] . " " . $val['date'];
-                $oone = date($one);
-                $ttwo = date($two);
-
-                
+            { 
+                $one = $val['hourstart'] . ":" . $val['minutestart'];
+                $two = $val['hourend'] . ":" . $val['minuteend'];
 
                 $reservation = new Book;
 
-                $reservation -> companyId = $userCompanyId['company'];
+                $reservation -> companyId = $userCompanyId;
                 $reservation -> name = $val['eventname'];
                 $reservation -> date = $val['date'];
-                $reservation -> start =  $oone;
-                $reservation -> end = $ttwo;
+                $reservation -> start =  $one;
+                $reservation -> end = $two;
 
                 $reservation -> save();
-                return redirect('');
+                return redirect('')->with('success', 'Wydarzenie zostało dodane pomyślnie!');
+            }
+            else
+            {
+                if(!($this -> reserved($val['hourstart'],
+                $val['minutestart'],
+                $val['hourend'], 
+                $val['minuteend'],
+                $val['date'])))
+                {
+                    return redirect('')->with('fail', 'Jakieś wydarzenie już istnieje.');
+                }
             }
         }
         else
@@ -73,6 +92,7 @@ class Bookingmanagement extends Controller
         }
         
     }
+
     private function valTime($starth, $startm, $koniech, $koniecm, $dzien)
     {
         $one = $starth . ":" .$startm . " " . $dzien;
@@ -88,9 +108,31 @@ class Bookingmanagement extends Controller
             return false;
         }
     }
+
     public function deleteBooking($idbook)
     {
         $aplikacja = Book::where('id','=',$idbook) -> delete();
         return redirect('/');
+    }
+    private function reserved($starth, $startm, $koniech, $koniecm, $dzien)
+    {
+        $allreservation = Book::where('date','=',$dzien)->get();
+
+        $rangestart = strtotime($starth . ":" .$startm);
+        $rangeend = strtotime($koniech . ":" . $koniecm);
+
+        foreach($allreservation as $one){
+            $reservedstart = strtotime($one -> start);
+            $reservedend = strtotime($one -> end);
+
+            if (($rangestart >= $reservedstart && $rangestart < $reservedend)
+            || ($rangeend > $reservedstart && $rangeend <= $reservedend)
+            || ($reservedstart >= $rangestart && $reservedstart < $rangeend)
+            || ($reservedend > $rangestart && $reservedend <= $rangeend))
+            {
+                return false; // Nakładanie się czasowe - rezerwacja jest już dokonana w tym czasie
+            }
+        }
+        return true;
     }
 }

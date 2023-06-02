@@ -11,6 +11,12 @@ use App\Models\Company as firma;
 
 class Company extends Controller
 {
+    private function getUserCompanyID()
+    {
+        $com = Employee::select('company') -> where('user', '=', Auth::id()) -> first();
+        return $com['company'];
+    }
+
     public function CreateCompany(Request $req): RedirectResponse
     {
         $val = $req->validate([
@@ -36,8 +42,8 @@ class Company extends Controller
     }
     public function editform()
     {
-        $userCompanyId = Employee::select('company') -> where('user', '=', Auth::id()) -> first();
-        $company = firma::where('id', '=', $userCompanyId -> company) -> first();
+        $userCompanyId = $this -> getUserCompanyID();
+        $company = firma::where('id', '=', $userCompanyId) -> first();
         return view('editcompany',[
             'company' => $company,
             'mainId' => "editform"
@@ -72,9 +78,9 @@ class Company extends Controller
     }
     public function list()
     {
-        $userCompanyId = Employee::select('company') -> where('user', '=', Auth::id()) -> first();
-        $swoi = Employee::where('employee.company', '=', $userCompanyId -> company) -> join('users', 'users.id', '=', 'employee.user') -> get();
-        $aplikacje = Companyrequest::where('companyrequest.companyID', '=', $userCompanyId -> company) -> where('companyrequest.status', '=', '0') -> join('users', 'users.id', '=', 'companyrequest.userID') -> get();
+        $userCompanyId = $this -> getUserCompanyID();
+        $swoi = Employee::where('employee.company', '=', $userCompanyId) -> join('users', 'users.id', '=', 'employee.user') -> get();
+        $aplikacje = Companyrequest::where('companyrequest.companyID', '=', $userCompanyId) -> where('companyrequest.status', '=', '0') -> join('users', 'users.id', '=', 'companyrequest.userID') -> get();
         return view("listemp", [
             "firma" => $swoi,
             "aplikacje" => $aplikacje,

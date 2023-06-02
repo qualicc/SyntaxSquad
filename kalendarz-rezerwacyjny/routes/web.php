@@ -27,7 +27,7 @@ Route::get('/acceptapp/{companyID}/{userid}', [Company::class, 'acceptApplicatio
 Route::get('/delapp/{companyID}/{userid}', [Company::class, 'deleteApplication']);
 Route::get('/delempl/{companyID}/{userid}', [Company::class, 'kickemployee']);
 Route::get('/delbook/{idbook}', [Bookingmanagement::class, 'deleteBooking']);
-Route::post('/addEvent', [Bookingmanagement::class, 'Reservation']);
+Route::post('/addEvent', [Bookingmanagement::class, 'reservation']);
 Route::post('/company-edit', [Company::class, 'edit']);
 Route::post('/company-request', [Company::class, 'request']);
 Route::post('/company-create', [Company::class, 'CreateCompany']);

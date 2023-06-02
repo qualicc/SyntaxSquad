@@ -23,16 +23,25 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+    private function getUserCompanyID()
+    {
+        $com = Employee::select('company') -> where('user', '=', Auth::id()) -> first();
+        return $com['company'];
+    }
+
     public function index()
     {
         return view('home');
     }
+
     public function company()
     {
-        $userCompanyId = Employee::select('company') -> where('user', '=', Auth::id()) -> first() ;
+        $userCompanyId = $this -> getUserCompanyID();
         
-        if (Auth::check() && !empty($userCompanyId)) {
-            $comapny = Company::where('ID', '=', $userCompanyId['company']) -> first();
+        if (Auth::check() && !empty($userCompanyId)) 
+        {
+            $comapny = Company::where('ID', '=', $userCompanyId) -> first();
             return view('mycompany', [
                 'comapny' => $comapny,
                 'mainId' => "companymenu",
