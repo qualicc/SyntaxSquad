@@ -34,7 +34,14 @@ html {
     text-decoration: none;
     color: black
   }
+ 
+  nav a{
+    transition: all .2s ease-in-out;
+  }
 
+  nav a:hover{
+    transform: scale(1.2);
+  }
  main#kalendarz #formularz{
   position: fixed;
   z-index: 1;
