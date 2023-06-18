@@ -40,7 +40,11 @@
                     <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{URL::to('')}}">Home</a>
                     </li>
-
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{URL::to('/calendar')}}">Kalendarz</a>
+                    </li>
                 </ul>
                 
                 

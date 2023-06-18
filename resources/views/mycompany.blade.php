@@ -6,13 +6,13 @@
     <h2>Twoje id: {{Auth::id()}}</h2>
   </div>
   <div class="d-flex justify-content-center">
-    <h2>ID towjej firmy: {{$comapny -> id}}</h2>
+    <h2>ID twojej firmy: {{$comapny -> id}}</h2>
   </div>
   <div class="d-flex justify-content-center">
-    <h2>Nazwa towjej firmy: {{$comapny -> name}}</h2>
+    <h2>Nazwa twojej firmy: {{$comapny -> name}}</h2>
   </div>
   <div class="d-flex justify-content-center">
-    <h2>NIP towjej firmy: {{$comapny -> nip}}</h2>
+    <h2>NIP twojej firmy: {{$comapny -> nip}}</h2>
   </div>
   <div class="d-flex justify-content-center">
     <a href="{{URL::to('company-employee')}}" type="button" class="btn btn-primary">Pracownicy firmy</a>

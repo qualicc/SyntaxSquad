@@ -18,4 +18,7 @@ class Calendar extends Controller
             'mainId' => "kalendarz"
         ]);
     }
+    function tutul() {
+        return view('index');
+    }
 }

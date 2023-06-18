@@ -16,7 +16,8 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', [Calendar::class, 'index']);
+Route::get('/', [Calendar::class, 'tutul']);
+Route::get('/calendar', [Calendar::class, 'index']);
 Route::get('/company', [HomeController::class, 'company']);
 Route::get('/reservation', [Bookingmanagement::class, 'list']);
 Route::get('/company-leave', [Company::class, 'leave']);

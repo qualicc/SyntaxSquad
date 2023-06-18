@@ -74,7 +74,7 @@ class Bookingmanagement extends Controller
                 $reservation -> end = $two;
 
                 $reservation -> save();
-                return redirect('')->with('success', 'Wydarzenie zostało dodane pomyślnie!');
+                return redirect('/calendar')->with('success', 'Wydarzenie zostało dodane pomyślnie!');
             }
             else
             {
@@ -84,9 +84,9 @@ class Bookingmanagement extends Controller
                 $val['minuteend'],
                 $val['date'])))
                 {
-                    return redirect('')->with('fail', 'Jakieś wydarzenie już istnieje.');
+                    return redirect('/calendar')->with('fail', 'Jakieś wydarzenie już istnieje.');
                 }
-                return redirect('')->with('fail', 'Błędny wymiar godzin.');
+                return redirect('/calendar')->with('fail', 'Błędny wymiar godzin.');
             }
         }
         if(!(Auth::id()))
@@ -115,7 +115,7 @@ class Bookingmanagement extends Controller
     public function deleteBooking($idbook)
     {
         $aplikacja = Book::where('id','=',$idbook) -> delete();
-        return redirect('/');
+        return redirect('/reservation');
     }
     private function reserved($starth, $startm, $koniech, $koniecm, $dzien)
     {

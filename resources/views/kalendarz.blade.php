@@ -97,7 +97,7 @@
                                 <label for="vehicle3"> Akceptuje <a style="color:white" href="regulamin.pdf">regulamin</a></label>
                             </div>
                             <br>
-                            <input type="submit" id="sub" name="sub" value="rezeruje">
+                            <input type="submit" id="sub" name="sub" value="Rezerwuje">
                         </form>
                     `);
                 }
